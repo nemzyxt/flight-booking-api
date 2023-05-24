@@ -14,3 +14,5 @@ router.get('/', (_, res) => {
         }
     })
 })
+
+module.exports = router
