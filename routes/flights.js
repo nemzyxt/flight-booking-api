@@ -6,7 +6,7 @@ const Flight = require('../models/Flight')
 
 // view available flights
 router.get('/', (_, res) => {
-    Flight.find({}, (err, flights) => {
+    Flight.find({ status:'available' }, (err, flights) => {
         if(err) {
             res.send(err)
         } else {
