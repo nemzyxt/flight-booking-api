@@ -16,7 +16,8 @@ const customerSchema = new mongoose.Schema({
     },
     email_addr: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 })
 
