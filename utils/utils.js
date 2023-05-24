@@ -22,26 +22,5 @@ const generateTicketNumber = () => {
     return uuid.substring(0, 8).toUpperCase()
 }
 
-// check whether a flight is full or not
-const fullyBooked = (flight_id) => {
-    // get max seats for the flight first
-    let max_seats
-    Flight.findOne({ flight_id:flight_id }, (err, f) => {
-        if(err) {
-            console.log(err)
-        } else {
-            max_seats = f.seats
-        }
-    })
-
-    Reservation.find({ flight_id:flight_id }, (err, f) => {
-        if(err) {
-            console.log(err)
-        } else {
-            return f.length == max_seats
-        }
-    })
-}
-
 module.exports = {
-    hashPasswd, passwdIsValid, generateTicketNumber, fullyBooked }
+    hashPasswd, passwdIsValid, generateTicketNumber }

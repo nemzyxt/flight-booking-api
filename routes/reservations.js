@@ -26,16 +26,11 @@ router.post('/', verifyCjwt, (req, res) => {
                 })
                 reservation.save()
                     .then(_ => {
-                        console.log(utils.fullyBooked(flight_id))
                         res.send('flight_booking_success')
                     })
                     .catch(err => {
                         res.send(err)
                     })
-                if (utils.fullyBooked(flight_id)) {
-                    // update the flight status to 'ready
-                    f.status = 'ready'
-                }
             } else {
                 // no flight with that flight_id
                 res.send('invalid_flight_id')
