@@ -5,6 +5,7 @@ const router = express.Router()
 const Flight = require('../models/Flight')
 const Reservation = require('../models/Reservation')
 const verifyCjwt = require('../middleware/verifyCjwt')
+const utils = require('../utils/utils')
 
 // create a new reservation
 router.post('/', verifyCjwt, (req, res) => {
@@ -21,7 +22,7 @@ router.post('/', verifyCjwt, (req, res) => {
                     reservation_id: uuidv4(),
                     flight_id: flight_id,
                     customer_id: customer_id,
-                    ticket_number: generateTicketNumber()
+                    ticket_number: utils.generateTicketNumber()
                 })
                 reservation.save()
                     .then(_ => {
@@ -30,7 +31,7 @@ router.post('/', verifyCjwt, (req, res) => {
                     .catch(err => {
                         res.send(err)
                     })
-                if (fullyBooked(flight_id)) {
+                if (utils.fullyBooked(flight_id)) {
                     // update the flight status to 'ready
                     f.status = 'ready'
                 }

@@ -4,12 +4,14 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const Customer = require('../models/Customer')
+const utils = require('../utils/utils')
 
 // create a new account
 router.post('/new', (req, res) => {
     email_addr = req.body.email_addr
     first_name = req.body.first_name
     last_name = req.body.last_name
+    passwd = req.body.passwd
     
     // confirm that the email does not exist
     Customer.find({ email_addr:email_addr })
@@ -23,7 +25,8 @@ router.post('/new', (req, res) => {
                     customer_id: customer_id,
                     first_name: first_name,
                     last_name: last_name,
-                    email_addr: email_addr
+                    email_addr: email_addr,
+                    passwd_hash: utils.hashPasswd(passwd)
                 })
                 customer.save()
                     .then(_ => {
@@ -46,7 +49,7 @@ router.post('/login', (req, res) => {
             res.send(err)
         } else {
             if(c) {
-                if(passwd == acct.passwd) {
+                if(utils.passwdIsValid(passwd, c.passwd_hash)) {
                     const payload = { uuid : acct.customer_id }
                     const token = jwt.sign(payload, key)
                     res.json({
