@@ -41,25 +41,21 @@ router.post('/login', (req, res) => {
     email = req.body.email
     passwd = req.body.passwd
 
-    // TODO: refactor to use findOne method instead
-    Customer.find({ email_addr:email })
-        .then(acct => {
-            if(acct.length == 0) {
-                // no such email
-                res.send('invalid credentials')
-            } else {
-                acct = acct[0]
-                
+    Customer.findOne({ email_addr:email }, (err, c) => {
+        if(err) {
+            res.send(err)
+        } else {
+            if(c) {
                 if(passwd == acct.passwd) {
                     // TODO: generate and include JWT token in response
                     // Include uuid in token
                     res.send('success')
                 } else {
-                    res.send('invalid credentials')
+                    res.send('invalid_credentials')
                 }
+            } else {
+                res.send('invalid_credentials')
             }
-        })
-        .catch(err => {
-            res.send(err)
-        })
+        }
+    })
 })
