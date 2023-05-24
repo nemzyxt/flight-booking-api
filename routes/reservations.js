@@ -6,31 +6,6 @@ const Flight = require('../models/Flight')
 const Reservation = require('../models/Reservation')
 const verifyCjwt = require('../middleware/verifyCjwt')
 
-const generateTicketNumber = () => {
-    const uuid = uuidv4().replace(/-/g, '')
-    return uuid.substring(0, 8).toUpperCase()
-}
-
-const fullyBooked = (flight_id) => {
-    // get max seats for the flight first
-    let max_seats
-    Flight.findOne({ flight_id:flight_id }, (err, f) => {
-        if(err) {
-            console.log(err)
-        } else {
-            max_seats = f.seats
-        }
-    })
-
-    Reservation.find({ flight_id:flight_id }, (err, f) => {
-        if(err) {
-            console.log(err)
-        } else {
-            return f.length == max_seats
-        }
-    })
-}
-
 // create a new reservation
 router.post('/', verifyCjwt, (req, res) => {
     flight_id = req.body.flight_id
