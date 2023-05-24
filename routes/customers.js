@@ -44,26 +44,25 @@ router.post('/login', (req, res) => {
     email = req.body.email
     passwd = req.body.passwd
 
-    Customer.findOne({ email_addr:email }, (err, c) => {
-        if(err) {
-            res.send(err)
-        } else {
+    Customer.findOne({ email_addr:email })
+        .then(c => {
             if(c) {
                 if(utils.passwdIsValid(passwd, c.passwd_hash)) {
-                    const payload = { uuid : acct.customer_id }
+                    const payload = { uuid : c.customer_id }
                     const key = process.env.JWT_KEY
                     const token = jwt.sign(payload, key)
-                    res.json({
-                        token: token
-                    })
+                    console.log(c.customer_id)
+                    res.send(token)
                 } else {
                     res.send('invalid_credentials')
                 }
             } else {
                 res.send('invalid_credentials')
             }
-        }
-    })
+        })
+        .catch(err => {
+            res.send(err)
+        })
 })
 
 module.exports = router

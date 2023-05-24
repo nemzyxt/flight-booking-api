@@ -1,21 +1,19 @@
-const bcrypt = require('bcrypt')
+const crypto = require('crypto')
+const { v4:uuidv4 } = require('uuid')
 
 const Flight = require('../models/Flight')
 const Reservation = require('../models/Reservation')
 
 // hash provided string using bcrypt
 const hashPasswd = (passwd) => {
-    rounds = 5
-    bcrypt.hash(passwd, rounds, (_, hash) => {
-        return hash
-    })
+    const hash = crypto.createHash("sha256")
+    hash.update(passwd)
+    return hash.digest('hex')
 }
 
 // check whether provided passwd is valid
 const passwdIsValid = (passwd, passwd_hash) => {
-    bcrypt.compare(passwd, passwd_hash, (_, result) => {
-        return result
-    })
+    return hashPasswd(passwd) == passwd_hash
 }
 
 // generate and return a unique ticket number

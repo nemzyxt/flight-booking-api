@@ -1,0 +1,35 @@
+GET http://localhost:8000/flights
+
+###
+POST http://localhost:8000/customers/new
+Content-Type: application/json
+
+{
+    "first_name": "Nemuel",
+    "last_name": "Wainaina",
+    "email_addr": "mail@nemuel.com",
+    "passwd": "password123"
+}
+
+###
+POST http://localhost:8000/customers/login
+Content-Type: application/json
+
+{
+    "email": "mail@nemuel.com",
+    "passwd": "password123"
+}
+
+###
+GET http://localhost:8000/bookings
+x-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNjhmNDkwYTUtMjc4Mi00NWEzLWE4ZWMtNWZkYzI3OWExMmZhIiwiaWF0IjoxNjg0OTQyMDc1fQ.pUb-zIRE4OMh38CkX3VW3lPajawjeZk8B4-aNTdVq6s
+
+###
+POST http://localhost:8000/bookings
+x-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNjhmNDkwYTUtMjc4Mi00NWEzLWE4ZWMtNWZkYzI3OWExMmZhIiwiaWF0IjoxNjg0OTQyMDc1fQ.pUb-zIRE4OMh38CkX3VW3lPajawjeZk8B4-aNTdVq6s
+Content-Type: application/json
+
+{
+    "flight_id": "9",
+    "customer_id": "68f490a5-2782-45a3-a8ec-5fdc279a12fa"
+}

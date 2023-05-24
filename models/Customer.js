@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const customerSchema = new mongoose.Schema({
-    user_id: {
+    customer_id: {
         type: String,
         required: true,
         unique: true
