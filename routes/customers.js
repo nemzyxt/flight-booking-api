@@ -51,6 +51,7 @@ router.post('/login', (req, res) => {
             if(c) {
                 if(utils.passwdIsValid(passwd, c.passwd_hash)) {
                     const payload = { uuid : acct.customer_id }
+                    const key = process.env.JWT_KEY
                     const token = jwt.sign(payload, key)
                     res.json({
                         token: token

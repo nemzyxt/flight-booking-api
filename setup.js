@@ -1,4 +1,5 @@
 const _ = require('lodash')
+require('dotenv').config()
 require('./database')
 
 const Flight = require('./models/Flight')
@@ -33,6 +34,7 @@ for(let i=0; i<10; i++) {
     const flight = new Flight({
         flight_id: _.uniqueId(),
         from: _.sample(fromOptions),
+        to: _.sample(toOptions),
         date: randDate(),
         time: randTime(),
         seats: _.sample(seatOptions),

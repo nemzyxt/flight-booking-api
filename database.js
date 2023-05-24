@@ -2,12 +2,11 @@ const mongoose = require('mongoose')
 
 class Database {
     constructor() {
-        const db = 'mongodb://localhost/lAirwaysDB'
         this._connect()
     }
 
     _connect() {
-        mongoose.connect(db)
+        mongoose.connect(process.env.DB_URL)
             .then(() => {
                 console.log('[+] Connection to DB successful')
             })
