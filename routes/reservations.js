@@ -55,6 +55,7 @@ router.post('/', (req, res) => {
                         res.send(err)
                     })
                 if (fullyBooked(flight_id)) {
+                    // update the flight status to 'ready
                     f.status = 'ready'
                 }
             } else {
