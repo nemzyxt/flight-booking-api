@@ -18,6 +18,21 @@ const flightSchema = mongoose.Schema({
         type: String,
         required: true
 
+    },
+    seats: {
+        type: Number,
+        required: true
+    },
+    ticket_cost: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: [
+            'available', 'ready',
+            'cancelled', 'airborne']
     }
 })
 
