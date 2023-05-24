@@ -1,5 +1,6 @@
 const { v4:uuidv4 } = require('uuid')
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 const Customer = require('../models/Customer')
@@ -47,9 +48,11 @@ router.post('/login', (req, res) => {
         } else {
             if(c) {
                 if(passwd == acct.passwd) {
-                    // TODO: generate and include JWT token in response
-                    // Include uuid in token
-                    res.send('success')
+                    const payload = { uuid : acct.customer_id }
+                    const token = jwt.sign(payload, key)
+                    res.json({
+                        token: token
+                    })
                 } else {
                     res.send('invalid_credentials')
                 }
