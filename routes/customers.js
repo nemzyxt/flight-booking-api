@@ -17,7 +17,6 @@ router.post('/new', (req, res) => {
             if(acct.length != 0) {
                 res.send('email_exists')
             } else {
-
                 // create new record
                 customer_id = uuidv4()
                 const customer = new Customer({
