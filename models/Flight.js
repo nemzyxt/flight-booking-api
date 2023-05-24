@@ -32,7 +32,8 @@ const flightSchema = mongoose.Schema({
         required: true,
         enum: [
             'available', 'ready',
-            'cancelled', 'airborne']
+            'cancelled', 'airborne'],
+        default: 'available'
     }
 })
 
