@@ -27,10 +27,7 @@ You can now start interacting with the API's various endpoints .
 
 ## Next Steps  
 
-Next steps would involve test running the requests embedded in the \
+- Next steps would involve test running the requests embedded in the \
 tests directory (you can add the REST Client extension on VS code)
-```
-test.rest
-```
 
-Alternatively, you can use a 3rd-party tool like Postman
+- Alternatively, you can use a 3rd-party tool like Postman
