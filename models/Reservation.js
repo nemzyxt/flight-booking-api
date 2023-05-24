@@ -20,3 +20,5 @@ const reservationSchema = mongoose.Schema({
         unique: true
     },
 })
+
+module.exports = mongoose.model('Reservation', reservationSchema)
