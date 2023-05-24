@@ -4,6 +4,7 @@ const router = express.Router()
 
 const Flight = require('../models/Flight')
 const Reservation = require('../models/Reservation')
+const verifyCjwt = require('../middleware/verifyCjwt')
 
 const generateTicketNumber = () => {
     const uuid = uuidv4().replace(/-/g, '')
@@ -31,7 +32,7 @@ const fullyBooked = (flight_id) => {
 }
 
 // create a new reservation
-router.post('/', (req, res) => {
+router.post('/', verifyCjwt, (req, res) => {
     flight_id = req.body.flight_id
     customer_id = req.body.flight_id
 
@@ -67,7 +68,7 @@ router.post('/', (req, res) => {
 })
 
 // view my reservations
-router.get('/', (req, res) => {
+router.get('/', verifyCjwt, (req, res) => {
     customer_id = req.body.customer_id
 
     Reservation.find({ customer_id:customer_id }, (err, r) => {
