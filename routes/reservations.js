@@ -66,4 +66,21 @@ router.post('/', (req, res) => {
     })
 })
 
+// view my reservations
+router.get('/', (req, res) => {
+    customer_id = req.body.customer_id
+
+    Reservation.find({ customer_id:customer_id }, (err, r) => {
+        if(err) {
+            res.send(err)
+        } else {
+            if(r) {
+                res.json(r)
+            } else {
+                res.send('no_reservations_done')
+            }
+        }
+    })
+})
+
 module.exports = router
